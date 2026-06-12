@@ -463,3 +463,218 @@ td {
     }
 
 }
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 768px) {
+
+    body {
+        padding: 10px;
+    }
+
+    .card {
+        padding: 14px;
+    }
+
+    .card-title {
+        font-size: 11px;
+    }
+
+    .input-field {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .score-btn {
+
+        height: 60px;
+
+        font-size: 20px;
+
+        width: 100%;
+    }
+
+    .summary-row {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 5px;
+    }
+
+    table {
+
+        font-size: 12px;
+    }
+
+    td,
+    th {
+
+        padding: 8px;
+    }
+
+    #thisOver {
+
+        justify-content: center;
+    }
+
+    .ball-chip {
+
+        width: 34px;
+        height: 34px;
+
+        font-size: 12px;
+    }
+}
+
+/* ==========================================
+   SMALL PHONES
+========================================== */
+
+@media (max-width: 480px) {
+
+    .score-btn {
+
+        height: 55px;
+
+        font-size: 18px;
+    }
+
+    .input-field {
+
+        font-size: 13px;
+
+        padding: 8px;
+    }
+
+    .card {
+
+        padding: 12px;
+    }
+
+    .summary-row span:last-child {
+
+        font-size: 14px;
+    }
+}
+
+/* ==========================================
+   TABLET
+========================================== */
+
+@media (min-width: 769px) and (max-width: 1200px) {
+
+    .score-btn {
+
+        height: 65px;
+
+        font-size: 22px;
+    }
+
+    .card {
+
+        padding: 18px;
+    }
+}
+
+/* ==========================================
+   TV MODE
+========================================== */
+
+@media (min-width: 1920px) {
+
+    body {
+
+        font-size: 18px;
+    }
+
+    .card {
+
+        padding: 30px;
+    }
+
+    .card-title {
+
+        font-size: 16px;
+    }
+
+    .input-field {
+
+        font-size: 18px;
+
+        padding: 16px;
+    }
+
+    .score-btn {
+
+        height: 85px;
+
+        font-size: 30px;
+    }
+
+    .primary-btn,
+    .secondary-btn,
+    .danger-btn {
+
+        font-size: 18px;
+
+        padding: 16px 22px;
+    }
+
+    .summary-row {
+
+        padding: 18px;
+    }
+
+    .summary-row span {
+
+        font-size: 18px;
+    }
+
+    .ball-chip {
+
+        width: 50px;
+        height: 50px;
+
+        font-size: 18px;
+    }
+}
+
+/* ==========================================
+   LANDSCAPE PHONE
+========================================== */
+
+@media (max-height: 500px) {
+
+    .score-btn {
+
+        height: 45px;
+
+        font-size: 16px;
+    }
+
+    .card {
+
+        padding: 10px;
+    }
+
+    .input-field {
+
+        padding: 8px;
+    }
+}
+
+html {
+
+    -webkit-tap-highlight-color: transparent;
+
+    touch-action: manipulation;
+}
+
+button {
+
+    user-select: none;
+}

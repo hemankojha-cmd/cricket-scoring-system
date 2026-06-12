@@ -12,9 +12,11 @@ const protocol =
     window.location.protocol === "https:"
         ? "wss:"
         : "ws:";
-
+//updated render link 
 const WS_URL =
-    `${protocol}//${window.location.host}`;
+    window.location.hostname === "localhost"
+        ? "ws://localhost:8080"
+        : "wss://cricket-scoring-system-u9i5.onrender.com";
 
 let socket = null;
 let reconnectAttempts = 0;
