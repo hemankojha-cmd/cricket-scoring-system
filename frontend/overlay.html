@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>OBS Cricket Overlay</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+    margin:0;
+    overflow:hidden;
+    background:transparent;
+    font-family:'Inter',sans-serif;
+}
+
+.sports-font{
+    font-family:'Oswald',sans-serif;
+}
+
+#overlay{
+    position:absolute;
+    left:40px;
+    bottom:40px;
+    min-width:1050px;
+    height:95px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="overlay"
+     class="flex items-center rounded-xl overflow-hidden shadow-2xl border border-zinc-800 bg-zinc-900/95 text-white">
+
+    <!-- TEAM -->
+
+    <div class="bg-indigo-600 h-full px-6 flex flex-col justify-center items-center min-w-[120px]">
+
+        <div id="teamCode"
+             class="sports-font text-3xl font-bold tracking-wider">
+            IND
+        </div>
+
+        <div class="text-[10px] uppercase tracking-widest text-indigo-100">
+            Innings 1
+        </div>
+
+    </div>
+
+    <!-- SCORE -->
+
+    <div class="px-8 flex items-center gap-2">
+
+        <span id="runs"
+              class="sports-font text-5xl font-bold">
+            0
+        </span>
+
+        <span class="text-zinc-500 text-3xl">
+            /
+        </span>
+
+        <span id="wickets"
+              class="sports-font text-4xl font-bold text-red-500">
+            0
+        </span>
+
+    </div>
+
+    <!-- OVERS -->
+
+    <div class="border-l border-zinc-800 h-full px-6 flex flex-col justify-center">
+
+        <div class="text-[10px] uppercase text-zinc-500 tracking-widest">
+            Overs
+        </div>
+
+        <div id="overs"
+             class="sports-font text-2xl font-bold">
+            0.0
+        </div>
+
+    </div>
+
+    <!-- BATSMEN -->
+
+    <div class="border-l border-zinc-800 h-full px-6 flex items-center justify-between flex-1">
+
+        <div>
+
+            <div class="flex items-center gap-2">
+
+                <span id="strikerName"
+                      class="font-semibold">
+                    Virat Kohli
+                </span>
+
+                <span id="strikerRuns"
+                      class="sports-font text-amber-400 font-bold">
+                    0*
+                </span>
+
+            </div>
+
+            <div class="flex items-center gap-2 text-sm text-zinc-400">
+
+                <span id="nonStrikerName">
+                    KL Rahul
+                </span>
+
+                <span id="nonStrikerRuns"
+                      class="sports-font">
+                    0
+                </span>
+
+            </div>
+
+        </div>
+
+        <!-- BOWLER -->
+
+        <div class="border-l border-zinc-800 px-4">
+
+            <div class="text-[10px] uppercase tracking-widest text-zinc-500">
+                Bowler
+            </div>
+
+            <div id="overlayBowlerName"
+                 class="font-semibold text-white">
+                Jasprit Bumrah
+            </div>
+
+            <div id="overlayBowlerFigures"
+                 class="sports-font text-sm text-amber-400">
+                0-0 (0.0)
+            </div>
+
+        </div>
+
+        <!-- CRR -->
+
+        <div class="text-right border-l border-zinc-800 pl-4">
+
+            <div class="text-[10px] uppercase tracking-widest text-zinc-500">
+                CRR
+            </div>
+
+            <div id="crr"
+                 class="sports-font text-xl font-bold text-indigo-400">
+                0.00
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- THIS OVER -->
+
+    <div class="bg-emerald-500 text-black h-full min-w-[220px] px-4 flex flex-col justify-center">
+
+        <div class="text-[10px] uppercase tracking-wide opacity-70">
+            This Over
+        </div>
+
+        <div id="thisOver"
+             class="sports-font text-lg font-bold">
+            Start
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+// ==========================================
+// WEBSOCKET
+// ==========================================
+
+const protocol =
+    window.location.protocol === "https:"
+        ? "wss:"
+        : "ws:";
+
+const SERVER_URL =
+    `${protocol}//${window.location.host}`;
+
+let ws;
+
+function connectSocket() {
+
+    ws = new WebSocket(SERVER_URL);
+
+    ws.onopen = () => {
+
+        console.log(
+            "Overlay Connected"
+        );
+    };
+
+    ws.onmessage = (event) => {
+
+        try {
+
+            const packet =
+                JSON.parse(event.data);
+
+            if (
+                packet.type === "SYNC"
+            ) {
+
+                updateOverlay(
+                    packet.data
+                );
+            }
+
+        } catch(err) {
+
+            console.error(err);
+        }
+    };
+
+    ws.onclose = () => {
+
+        console.log(
+            "Disconnected"
+        );
+
+        setTimeout(
+            connectSocket,
+            3000
+        );
+    };
+}
+
+// ==========================================
+// UPDATE OVERLAY
+// ==========================================
+
+function updateOverlay(state) {
+
+    const overs =
+        `${Math.floor(state.balls / 6)}.${state.balls % 6}`;
+
+    const crr =
+        state.balls > 0
+        ? ((state.runs / state.balls) * 6).toFixed(2)
+        : "0.00";
+
+    document.getElementById(
+        "teamCode"
+    ).innerText =
+        state.team || "IND";
+
+    document.getElementById(
+        "runs"
+    ).innerText =
+        state.runs || 0;
+
+    document.getElementById(
+        "wickets"
+    ).innerText =
+        state.wickets || 0;
+
+    document.getElementById(
+        "overs"
+    ).innerText =
+        overs;
+
+    document.getElementById(
+        "strikerName"
+    ).innerText =
+        state.p1Name || "";
+
+    document.getElementById(
+        "strikerRuns"
+    ).innerText =
+        `${state.p1Runs || 0}*`;
+
+    document.getElementById(
+        "nonStrikerName"
+    ).innerText =
+        state.p2Name || "";
+
+    document.getElementById(
+        "nonStrikerRuns"
+    ).innerText =
+        state.p2Runs || 0;
+
+    document.getElementById(
+        "overlayBowlerName"
+    ).innerText =
+        state.bowlerName || "";
+
+    document.getElementById(
+        "overlayBowlerFigures"
+    ).innerText =
+        `${state.bowlerWickets || 0}-${state.bowlerRuns || 0} (${state.bowlerOvers || "0.0"})`;
+
+    document.getElementById(
+        "crr"
+    ).innerText =
+        crr;
+
+    document.getElementById(
+        "thisOver"
+    ).innerText =
+        state.thisOverTimeline &&
+        state.thisOverTimeline.length > 0
+            ? state.thisOverTimeline.join(" • ")
+            : "Start";
+}
+
+// ==========================================
+
+connectSocket();
+
+// ==========================================
+
+</script>
+
+</body>
+</html>

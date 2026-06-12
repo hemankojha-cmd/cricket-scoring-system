@@ -1,0 +1,465 @@
+/* ==========================================
+   GLOBAL STYLES
+========================================== */
+
+:root {
+    --bg-primary: #09090b;
+    --bg-secondary: #18181b;
+    --bg-card: #27272a;
+
+    --border-color: #3f3f46;
+
+    --text-primary: #ffffff;
+    --text-secondary: #a1a1aa;
+
+    --indigo: #4f46e5;
+    --indigo-hover: #6366f1;
+
+    --green: #16a34a;
+    --green-hover: #22c55e;
+
+    --red: #dc2626;
+    --red-hover: #ef4444;
+
+    --yellow: #f59e0b;
+
+    --radius: 12px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: "Inter", sans-serif;
+}
+
+.sports-font {
+    font-family: "Oswald", sans-serif;
+}
+
+/* ==========================================
+   SCROLLBAR
+========================================== */
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #18181b;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #52525b;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #71717a;
+}
+
+/* ==========================================
+   INPUTS
+========================================== */
+
+.input-field {
+    width: 100%;
+    background: #09090b;
+    border: 1px solid #3f3f46;
+    color: white;
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 14px;
+    transition: all .2s ease;
+}
+
+.input-field:focus {
+    outline: none;
+    border-color: var(--indigo);
+    box-shadow: 0 0 0 2px rgba(99,102,241,.2);
+}
+
+.input-field::placeholder {
+    color: #71717a;
+}
+
+/* ==========================================
+   BUTTONS
+========================================== */
+
+.score-btn {
+    height: 58px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+
+    font-size: 20px;
+    font-weight: 700;
+
+    background: #27272a;
+    color: white;
+
+    transition: .2s;
+}
+
+.score-btn:hover {
+    background: #3f3f46;
+    transform: translateY(-2px);
+}
+
+.score-btn:active {
+    transform: scale(.96);
+}
+
+.score-btn.four {
+    background: var(--indigo);
+}
+
+.score-btn.four:hover {
+    background: var(--indigo-hover);
+}
+
+.score-btn.six {
+    background: var(--green);
+}
+
+.score-btn.six:hover {
+    background: var(--green-hover);
+}
+
+.primary-btn {
+    border: none;
+    cursor: pointer;
+
+    padding: 12px 16px;
+
+    border-radius: 10px;
+
+    background: var(--indigo);
+    color: white;
+
+    font-weight: 600;
+
+    transition: .2s;
+}
+
+.primary-btn:hover {
+    background: var(--indigo-hover);
+}
+
+.secondary-btn {
+    border: 1px solid #3f3f46;
+
+    cursor: pointer;
+
+    padding: 12px 16px;
+
+    border-radius: 10px;
+
+    background: #27272a;
+    color: white;
+
+    font-weight: 600;
+
+    transition: .2s;
+}
+
+.secondary-btn:hover {
+    background: #3f3f46;
+}
+
+.danger-btn {
+    border: none;
+
+    cursor: pointer;
+
+    padding: 12px 16px;
+
+    border-radius: 10px;
+
+    background: var(--red);
+    color: white;
+
+    font-weight: 600;
+
+    transition: .2s;
+}
+
+.danger-btn:hover {
+    background: var(--red-hover);
+}
+
+/* ==========================================
+   CARDS
+========================================== */
+
+.card {
+    background: #18181b;
+    border: 1px solid #27272a;
+    border-radius: 14px;
+    padding: 20px;
+}
+
+.card-title {
+    color: #a1a1aa;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 12px;
+    margin-bottom: 16px;
+}
+
+/* ==========================================
+   SUMMARY ROWS
+========================================== */
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background: #09090b;
+
+    padding: 12px;
+
+    border-radius: 10px;
+
+    border: 1px solid #27272a;
+}
+
+.summary-row span:first-child {
+    color: #a1a1aa;
+    font-size: 13px;
+}
+
+.summary-row span:last-child {
+    font-weight: 700;
+    color: white;
+}
+
+/* ==========================================
+   CONNECTION STATUS
+========================================== */
+
+.connected {
+    background: rgba(22,163,74,.15);
+    border: 1px solid rgba(22,163,74,.4);
+    color: #4ade80;
+}
+
+.disconnected {
+    background: rgba(220,38,38,.15);
+    border: 1px solid rgba(220,38,38,.4);
+    color: #f87171;
+}
+
+.connecting {
+    background: rgba(245,158,11,.15);
+    border: 1px solid rgba(245,158,11,.4);
+    color: #fbbf24;
+}
+
+/* ==========================================
+   THIS OVER DISPLAY
+========================================== */
+
+#thisOver {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.ball-chip {
+    min-width: 36px;
+    height: 36px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 999px;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    background: #27272a;
+}
+
+.ball-dot {
+    background: #27272a;
+}
+
+.ball-run {
+    background: #4f46e5;
+}
+
+.ball-four {
+    background: #2563eb;
+}
+
+.ball-six {
+    background: #16a34a;
+}
+
+.ball-wicket {
+    background: #dc2626;
+}
+
+.ball-extra {
+    background: #d97706;
+}
+
+/* ==========================================
+   TABLES
+========================================== */
+
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background: #09090b;
+}
+
+th {
+    text-align: left;
+    padding: 12px;
+    color: #a1a1aa;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+td {
+    padding: 12px;
+    border-top: 1px solid #27272a;
+}
+
+/* ==========================================
+   MODAL
+========================================== */
+
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+
+    background: rgba(0,0,0,.75);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 9999;
+}
+
+.modal {
+    width: 90%;
+    max-width: 500px;
+
+    background: #18181b;
+
+    border-radius: 14px;
+
+    border: 1px solid #27272a;
+
+    padding: 24px;
+}
+
+/* ==========================================
+   TOAST
+========================================== */
+
+.toast {
+    position: fixed;
+
+    bottom: 25px;
+    right: 25px;
+
+    background: #18181b;
+
+    border: 1px solid #27272a;
+
+    padding: 12px 18px;
+
+    border-radius: 10px;
+
+    z-index: 9999;
+
+    animation: fadeIn .25s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
+
+/* ==========================================
+   OVERLAY ANIMATIONS
+========================================== */
+
+.overlay-slide {
+    animation: overlayIn .4s ease;
+}
+
+@keyframes overlayIn {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media (max-width: 1024px) {
+
+    .score-btn {
+        height: 52px;
+        font-size: 18px;
+    }
+
+}
+
+@media (max-width: 768px) {
+
+    .score-btn {
+        height: 48px;
+        font-size: 16px;
+    }
+
+    .input-field {
+        font-size: 13px;
+    }
+
+}
+
+@media (max-width: 640px) {
+
+    .summary-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+
+}

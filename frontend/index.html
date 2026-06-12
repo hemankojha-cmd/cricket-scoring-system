@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cricket Graphics Engine</title>
+
+    <!-- Tailwind -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+
+<body class="bg-zinc-950 text-white min-h-screen">
+
+    <!-- Header -->
+    <header class="border-b border-zinc-800 bg-zinc-900">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+
+            <div class="flex items-center gap-3">
+                <div class="bg-indigo-600 p-2 rounded-lg">
+                    <i data-lucide="radio"></i>
+                </div>
+
+                <div>
+                    <h1 class="font-bold text-lg">
+                        Cricket Graphics Engine
+                    </h1>
+                    <p class="text-xs text-zinc-400">
+                        Live Broadcast Controller
+                    </p>
+                </div>
+            </div>
+
+            <div id="connectionStatus"
+                class="bg-zinc-800 border border-zinc-700 px-4 py-2 rounded-lg text-sm">
+                Connecting...
+            </div>
+
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-6 py-8">
+
+        <div class="grid lg:grid-cols-3 gap-6">
+
+            <!-- Left Panel -->
+            <div class="lg:col-span-2 space-y-6">
+
+                <!-- Match Score Card -->
+                <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
+
+                    <h2 class="text-sm uppercase tracking-widest text-zinc-400 mb-4">
+                        Match Score
+                    </h2>
+
+                    <div class="grid md:grid-cols-4 gap-4">
+
+                        <div>
+                            <label class="block text-xs text-zinc-400 mb-1">
+                                Team
+                            </label>
+
+                            <input
+                                id="teamInput"
+                                type="text"
+                                value="IND"
+                                class="input-field">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs text-zinc-400 mb-1">
+                                Runs
+                            </label>
+
+                            <input
+                                id="runsInput"
+                                type="number"
+                                value="0"
+                                class="input-field">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs text-zinc-400 mb-1">
+                                Wickets
+                            </label>
+
+                            <input
+                                id="wicketsInput"
+                                type="number"
+                                value="0"
+                                class="input-field">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs text-zinc-400 mb-1">
+                                Overs
+                            </label>
+
+                            <input
+                                id="oversInput"
+                                type="text"
+                                value="0.0"
+                                class="input-field">
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Batsmen -->
+                <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
+
+                    <h2 class="text-sm uppercase tracking-widest text-zinc-400 mb-4">
+                        Batsmen
+                    </h2>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+
+                        <div class="space-y-3">
+
+                            <h3 class="text-indigo-400 font-semibold">
+                                Striker
+                            </h3>
+
+                            <input
+                                id="p1Name"
+                                type="text"
+                                value="Virat Kohli"
+                                class="input-field">
+
+                            <input
+                                id="p1Runs"
+                                type="number"
+                                value="0"
+                                class="input-field">
+
+                        </div>
+
+                        <div class="space-y-3">
+
+                            <h3 class="text-emerald-400 font-semibold">
+                                Non-Striker
+                            </h3>
+
+                            <input
+                                id="p2Name"
+                                type="text"
+                                value="KL Rahul"
+                                class="input-field">
+
+                            <input
+                                id="p2Runs"
+                                type="number"
+                                value="0"
+                                class="input-field">
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Run Buttons -->
+                <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
+
+                    <h2 class="text-sm uppercase tracking-widest text-zinc-400 mb-4">
+                        Scoring Controls
+                    </h2>
+
+                    <div class="grid grid-cols-4 md:grid-cols-8 gap-3">
+
+                        <button onclick="addRuns(0)" class="score-btn">
+                            0
+                        </button>
+
+                        <button onclick="addRuns(1)" class="score-btn">
+                            1
+                        </button>
+
+                        <button onclick="addRuns(2)" class="score-btn">
+                            2
+                        </button>
+
+                        <button onclick="addRuns(3)" class="score-btn">
+                            3
+                        </button>
+
+                        <button onclick="addRuns(4)" class="score-btn four">
+                            4
+                        </button>
+
+                        <button onclick="addRuns(6)" class="score-btn six">
+                            6
+                        </button>
+
+                        <button onclick="addWide()" class="score-btn">
+                            WD
+                        </button>
+
+                        <button onclick="addNoBall()" class="score-btn">
+                            NB
+                        </button>
+
+                    </div>
+
+                    <div class="grid md:grid-cols-3 gap-3 mt-4">
+
+                        <button
+                            onclick="addBye()"
+                            class="secondary-btn">
+
+                            Bye
+                        </button>
+
+                        <button
+                            onclick="wicket()"
+                            class="danger-btn">
+
+                            Wicket
+                        </button>
+
+                        <button
+                            onclick="swapStrike()"
+                            class="secondary-btn">
+
+                            Swap Strike
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <!-- Bowler -->
+                <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
+
+                    <h2 class="text-sm uppercase tracking-widest text-zinc-400 mb-4">
+                        Bowler
+                    </h2>
+
+                    <div class="grid md:grid-cols-4 gap-4">
+
+                        <input
+                            id="bowlerName"
+                            type="text"
+                            value="Jasprit Bumrah"
+                            class="input-field">
+
+                        <input
+                            id="bowlerOvers"
+                            type="text"
+                            value="0.0"
+                            class="input-field">
+
+                        <input
+                            id="bowlerRuns"
+                            type="number"
+                            value="0"
+                            class="input-field">
+
+                        <input
+                            id="bowlerWickets"
+                            type="number"
+                            value="0"
+                            class="input-field">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Right Panel -->
+            <div class="space-y-6">
+
+                <!-- Match Summary -->
+                <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
+
+                    <h2 class="text-sm uppercase tracking-widest text-zinc-400 mb-4">
+                        Match Summary
+                    </h2>
+
+                    <div class="space-y-3">
+
+                        <div class="summary-row">
+                            <span>Total Score</span>
+                            <span id="summaryScore">0/0</span>
+                        </div>
+
+                        <div class="summary-row">
+                            <span>Overs</span>
+                            <span id="summaryOvers">0.0</span>
+                        </div>
+
+                        <div class="summary-row">
+                            <span>CRR</span>
+                            <span id="summaryCRR">0.00</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- This Over -->
+                <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
+
+                    <h2 class="text-sm uppercase tracking-widest text-zinc-400 mb-4">
+                        This Over
+                    </h2>
+
+                    <div
+                        id="thisOver"
+                        class="min-h-[80px] bg-zinc-950 rounded-lg p-3 text-sm border border-zinc-800">
+                    </div>
+
+                </div>
+
+                <!-- Match Actions -->
+                <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
+
+                    <h2 class="text-sm uppercase tracking-widest text-zinc-400 mb-4">
+                        Match Actions
+                    </h2>
+
+                    <div class="space-y-3">
+
+                        <button
+                            onclick="saveState()"
+                            class="primary-btn w-full">
+
+                            Save Match State
+                        </button>
+
+                        <button
+                            onclick="loadState()"
+                            class="secondary-btn w-full">
+
+                            Load Match State
+                        </button>
+
+                        <button
+                            onclick="resetMatch()"
+                            class="danger-btn w-full">
+
+                            Reset Match
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <script src="./js/websocket.js"></script>
+    <script src="./js/scoreboard.js"></script>
+    <script src="./js/app.js"></script>
+
+    <script>
+        lucide.createIcons();
+    </script>
+
+</body>
+</html>
